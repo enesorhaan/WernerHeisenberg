@@ -1,4 +1,4 @@
-﻿@model List<Order>
+﻿@model List<OrderListViewModel>
 
 <h2 class="text-center">Order List</h2>
 
@@ -16,7 +16,7 @@
         {
             <tr>
                 <th>@(i+1)</th>
-                <td>@Model[i].OrderId</td>
+                <td>@Model[i].OrderID</td>
                 <td>@Model[i].OrderDate</td>
                 <td>@Model[i].ShipCountry</td>
             </tr>

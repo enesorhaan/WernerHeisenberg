@@ -1,4 +1,4 @@
-﻿@model List<Employee>
+﻿@model List<EmployeeListViewModel>
 
 <h2 class="text-center">Employee List</h2>
 <a asp-asp-controller="Employee" asp-action="Create" class="btn btn-primary" style="float:right">New Employee</a>
@@ -22,7 +22,7 @@
                 <td>@Model[i].LastName</td>
                 <td>@Model[i].Title</td>
                 <td>
-                    <a class="btn btn-secondary" asp-action="OrderList" asp-controller="Order" asp-route-id="@Model[i].EmployeeId">Orders</a>
+                    <a class="btn btn-secondary" asp-action="OrderList" asp-route-id="@Model[i].EmployeeID">Orders</a>
                 </td>
             </tr>
         }
