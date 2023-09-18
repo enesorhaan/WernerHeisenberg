@@ -44,6 +44,15 @@ namespace Task1.Controllers
         }
         public IActionResult Create()
         {
+            List<SelectListItem> employees = _db.Employees.Select(e =>
+                new SelectListItem()
+                {
+                    Text = $"{e.FirstName} {e.LastName}",
+                    Value = e.EmployeeId.ToString()
+                }).ToList();
+
+            ViewBag.Employees = employees;
+
             return View();
         }
         [HttpPost]
@@ -54,6 +63,7 @@ namespace Task1.Controllers
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Title = model.Title,
+                ReportsTo = model.ReportsTo
             };
 
             if(!ModelState.IsValid)
@@ -62,8 +72,14 @@ namespace Task1.Controllers
             }
 
             _db.Employees.Add(employee);
-            _db.SaveChanges();
-            return RedirectToAction("List");
+            int result = _db.SaveChanges();
+            if(result == 0) 
+            {
+                ViewBag.Message = "Registration Failed";
+                return View();
+            }
+
+            return RedirectToAction(nameof(List));
         }
     }
 }

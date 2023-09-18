@@ -1,5 +1,12 @@
 ﻿@model EmployeeCreateViewModel
 
+@if (ViewBag.Message is not null)
+{
+    <p>
+        <span>@ViewBag.Message</span>
+    </p>
+}
+
 <h2 class="text-center">New Employee Add Page</h2>
 
 <form method="post" asp-action="Create" asp-controller="Employee">
@@ -17,6 +24,12 @@
         <label class="form-label" asp-for="Title">Title</label>
         <input type="text" class="form-control" asp-for="Title" />
         <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div>
+        <label class="-form-label" asp-for="ReportsTo">Reports To</label>
+        <select class="form-control" asp-for="ReportsTo" asp-items="@ViewBag.Employees">
+
+        </select>
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
