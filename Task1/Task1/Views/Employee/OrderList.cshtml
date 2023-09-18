@@ -1,4 +1,12 @@
-﻿@model List<OrderListViewModel>
+﻿@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Mvc.Common;
+
+@*@model List<OrderListViewModel>*@
+
+@model IPagedList<OrderListViewModel>
+
+<link rel="stylesheet" href="/css/PagedList.css" />
 
 <h2 class="text-center">Order List</h2>
 
@@ -23,3 +31,10 @@
         }
     </tbody>
 </table>
+
+<br />
+
+@Html.PagedListPager(Model, 
+    page => Url.Action("OrderList",new { page }),
+    new PagedListRenderOptions() { DisplayLinkToFirstPage = PagedListDisplayMode.Always}
+    )

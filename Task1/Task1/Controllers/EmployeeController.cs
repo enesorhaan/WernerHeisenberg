@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Task1.Models;
 using Task1.Models.ViewModel;
+using X.PagedList;
 
 namespace Task1.Controllers
 {
@@ -30,15 +31,28 @@ namespace Task1.Controllers
 
             return View(employees);
         }
-        public IActionResult OrderList(int id)
+        public IActionResult OrderList(int id, int page = 1)
         {
-            List<OrderListViewModel> orders = _db.Orders.Where(x => x.EmployeeId == id).Select(x =>
+            #region MyRegion
+            //List<OrderListViewModel> orders = _db.Orders.Where(x => x.EmployeeId == id)
+            //    .Skip((page-1)*10).Take(10)
+            //    .Select(x =>
+            //    new OrderListViewModel
+            //    {
+            //        OrderID = x.OrderId,
+            //        OrderDate = x.OrderDate,
+            //        ShipCountry = x.ShipCountry
+            //    }).ToList(); 
+            #endregion
+
+            IPagedList<OrderListViewModel> orders = _db.Orders.Where(x => x.EmployeeId == id)
+                .Select(x =>
                 new OrderListViewModel
                 {
                     OrderID = x.OrderId,
                     OrderDate = x.OrderDate,
                     ShipCountry = x.ShipCountry
-                }).ToList();
+                }).ToPagedList(page, 10);
 
             return View(orders);
         }
